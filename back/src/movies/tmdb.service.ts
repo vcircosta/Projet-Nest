@@ -1,0 +1,44 @@
+import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
+import { lastValueFrom } from 'rxjs';
+import axios, { AxiosError } from 'axios';
+
+@Injectable()
+export class MoviesService {
+  private apiKey: string;
+  private baseUrl: string = 'https://api.themoviedb.org/3';
+
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService
+  ) {
+    this.apiKey = this.configService.get<string>('TMDB_API_KEY') || '';
+  }
+
+  async getMovies(page: number = 1, search: string = '', sort: string = 'popularity.desc') {
+    let url = `${this.baseUrl}/movie/popular?api_key=${this.apiKey}&page=${page}`;
+    
+    if (search) {
+      url = `${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${encodeURIComponent(search)}&page=${page}`;
+    }
+
+    try {
+      const response = await lastValueFrom(this.httpService.get(url));
+      return response.data.results;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        // Vérification de l'erreur Axios
+        const axiosError = error as AxiosError;
+        console.error('Erreur TMDB:', axiosError.response?.data || axiosError.message);
+      } else if (error instanceof Error) {
+        // Gestion des erreurs génériques
+        console.error('Erreur inconnue:', error.message);
+      } else {
+        // Cas où l'erreur est d'un type inconnu
+        console.error('Erreur inconnue:', error);
+      }
+      return [];
+    }
+  }
+}

@@ -1,0 +1,2 @@
+// JWT_SECRET=secret_key
+// node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
