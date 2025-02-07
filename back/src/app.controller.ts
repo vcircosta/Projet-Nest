@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { MoviesService } from './movies/movies.service';  // Service des films
 
-@Controller()
+@Controller('movies') // Endpoint qui commence par "/movies"
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly moviesService: MoviesService) {} // Injecter MoviesService
 
+  // Route qui retourne la liste des films
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async getMovies(): Promise<any> {
+    return this.moviesService.getMovies();  // Appeler la méthode pour récupérer les films
   }
 }

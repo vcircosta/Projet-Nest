@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getHello(name: string): string {
+    return `Hello, ${name}!`;  // Ce n'est pas forcément nécessaire ici pour la gestion des films
   }
 }
