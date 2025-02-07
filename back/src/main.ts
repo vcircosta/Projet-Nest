@@ -5,7 +5,6 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Configuration de Swagger
   const config = new DocumentBuilder()
     .setTitle('Reservation Film API')
     .setDescription('API for user registration and login')

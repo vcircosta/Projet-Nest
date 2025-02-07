@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { MoviesModule } from './movies/movies.module';  // Module des films
+import { MoviesModule } from './movies/movies.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,10 +11,10 @@ import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),  // Charger les variables d'environnement
-    MoviesModule,  // Importer MoviesModule pour gérer les films
-    AuthModule,    // Importer AuthModule pour l'authentification
-    UsersModule,   // Importer UsersModule pour gérer les utilisateurs
+    ConfigModule.forRoot({ isGlobal: true }),
+    MoviesModule,
+    AuthModule,
+    UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -25,7 +25,7 @@ import { ReservationModule } from './reservation/reservation.module';
       entities: [User],
       synchronize: true,
     }),
-    ReservationModule, // Importer ReservationModule pour gérer les réservations
+    ReservationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

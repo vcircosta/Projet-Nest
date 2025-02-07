@@ -27,12 +27,10 @@ export class MoviesService {
       const response = await lastValueFrom(this.httpService.get(url));
       return response.data.results;
     } catch (error: unknown) {
-      // Vérification explicite de l'erreur Axios
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         console.error('Erreur TMDB:', axiosError.response?.data || axiosError.message);
       } else {
-        // Gestion d'une erreur générique
         const err = error as Error;
         console.error('Erreur inconnue:', err.message);
       }

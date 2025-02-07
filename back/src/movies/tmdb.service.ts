@@ -28,14 +28,11 @@ export class MoviesService {
       return response.data.results;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        // Vérification de l'erreur Axios
         const axiosError = error as AxiosError;
         console.error('Erreur TMDB:', axiosError.response?.data || axiosError.message);
       } else if (error instanceof Error) {
-        // Gestion des erreurs génériques
         console.error('Erreur inconnue:', error.message);
       } else {
-        // Cas où l'erreur est d'un type inconnu
         console.error('Erreur inconnue:', error);
       }
       return [];

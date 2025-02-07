@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from '../users/users.module';  // Vérifiez que le chemin est correct
+import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';

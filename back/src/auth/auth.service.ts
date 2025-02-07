@@ -21,7 +21,6 @@ export class AuthService {
   async register(registerDto: RegisterDto) {
     const { email, password, role } = registerDto;
 
-    // Vérification de la validité de l'email et du mot de passe
     if (!email || !email.trim()) {
       throw new BadRequestException('Email is required.');
     }
@@ -30,7 +29,6 @@ export class AuthService {
       throw new BadRequestException('Password is required and should have at least 6 characters.');
     }
 
-    // Vérifie si l'email existe déjà dans la base de données
     const existingUser = await this.prisma.user.findUnique({
       where: { email },
     });
@@ -40,10 +38,8 @@ export class AuthService {
     }
 
     try {
-      // Hachage du mot de passe
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Création de l'utilisateur dans la base de données
       const newUser = await this.prisma.user.create({
         data: {
           email,
@@ -52,7 +48,6 @@ export class AuthService {
         },
       });
 
-      // Retourner les informations de l'utilisateur enregistré
       return {
         message: 'User successfully registered',
         user: {
@@ -62,7 +57,7 @@ export class AuthService {
         },
       };
     } catch (error) {
-      // Log et gestion des erreurs en cas d'échec de la création
+
       console.error('Error during user registration:', error);
       throw new BadRequestException('Error during user registration');
     }
@@ -110,7 +105,6 @@ export class AuthService {
     const payload = { userId: user.id, role: user.role };
     const accessToken = this.jwtService.sign(payload);
   
-    // Retourner uniquement les données nécessaires
     return {
       accessToken,
       message: 'Login successful',

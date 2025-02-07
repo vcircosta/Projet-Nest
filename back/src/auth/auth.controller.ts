@@ -25,7 +25,7 @@ export class AuthController {
   }
 
   @Post('login')
-  @HttpCode(200)  // Indiquer explicitement que la réponse sera avec le statut 200 OK
+  @HttpCode(200)
   @ApiOperation({ summary: 'Login an existing user' })
   @ApiResponse({
     status: 200,
@@ -38,7 +38,7 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto) {
     const user = await this.authService.login(loginDto);
     return {
-      statusCode: 200,  // Confirmer que c'est bien 200 OK
+      statusCode: 200,
       message: 'Login successful',
       accessToken: user.accessToken,
     };
