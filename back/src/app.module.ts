@@ -23,7 +23,6 @@ import { ReservationModule } from './reservation/reservation.module';
       password: process.env.DB_PASSWORD || 'root',
       database: process.env.DB_NAME || 'movies_db',
       entities: [User],
-      synchronize: true,
     }),
     ReservationModule,
   ],
