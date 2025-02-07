@@ -17,10 +17,10 @@ import { ReservationModule } from './reservation/reservation.module';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
+      host: process.env.DB_HOST || 'DB_HOST',
       port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
-      username: process.env.DB_USERNAME || 'postgres',
-      password: process.env.DB_PASSWORD || 'root',
+      username: process.env.DB_USERNAME || 'DB_USERNAME',
+      password: process.env.DB_PASSWORD || 'DB_PASSWORD',
       database: process.env.DB_NAME || 'movies_db',
       entities: [User],
     }),
